@@ -27,8 +27,8 @@ function PureChatHeader({
   return (
     <header className="flex sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 py-3 items-center px-4 gap-3 z-10">
       <SidebarToggle />
-      
-      <div className="flex items-center gap-2">
+
+      <Link href="/" className="flex items-center gap-2 rounded-lg transition-opacity hover:opacity-90">
         <div className="w-8 h-8 travel-gradient rounded-lg flex items-center justify-center overflow-hidden">
           <Image
             src="/logo_mark_icon.png"
@@ -39,7 +39,7 @@ function PureChatHeader({
           />
         </div>
         <h1 className="text-lg font-semibold text-slate-800 dark:text-slate-200">TravelMate AI</h1>
-      </div>
+      </Link>
 
       {(!open || windowWidth < 768) && (
         <Tooltip>

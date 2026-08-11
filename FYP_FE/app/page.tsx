@@ -50,8 +50,20 @@ function Hero() {
               </svg>
             </Link>
             <Link
+              href="/register"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium bg-teal-600 dark:bg-teal-500 text-white hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors shadow-sm"
+            >
+              Sign Up
+            </Link>
+            <Link
+              href="/login"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-zinc-800/60 transition-colors"
+            >
+              Log In
+            </Link>
+            <Link
               href="/explore"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-zinc-800/60 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-medium border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-white/40 dark:hover:bg-zinc-800/40 transition-colors"
             >
               Explore destinations
             </Link>
@@ -234,15 +246,29 @@ function CTA() {
         <p className="text-slate-500 dark:text-slate-400 mb-8 max-w-md mx-auto">
           No forms, no filters, no ten-tab browsing sessions. Just tell the agent where you want to go.
         </p>
-        <Link
-          href="/chat/new"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium bg-[hsl(var(--brand))] text-white hover:opacity-90 transition-opacity text-lg"
-        >
-          Start planning
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </Link>
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/chat/new"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium bg-[hsl(var(--brand))] text-white hover:opacity-90 transition-opacity text-base shadow-md"
+          >
+            Start planning
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </Link>
+          <Link
+            href="/register"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium bg-teal-600 dark:bg-teal-500 text-white hover:bg-teal-700 dark:hover:bg-teal-600 transition-colors text-base shadow-md"
+          >
+            Sign Up
+          </Link>
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-medium border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-zinc-800 transition-colors text-base"
+          >
+            Log In
+          </Link>
+        </div>
       </motion.div>
     </section>
   );

@@ -35,7 +35,7 @@ export function WebSocketInput() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Tell me where you'd like to travel..."
-          className="min-h-[60px] pr-14 resize-none border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 rounded-2xl shadow-sm focus:ring-2 focus:ring-[hsl(var(--brand))] focus:border-transparent transition-all duration-200"
+          className="min-h-[60px] pr-14 resize-none border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 rounded-2xl shadow-sm focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-200 text-sm font-medium"
           disabled={!socketConnected || isTyping}
         />
         <Button

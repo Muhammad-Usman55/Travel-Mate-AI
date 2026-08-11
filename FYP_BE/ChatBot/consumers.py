@@ -69,7 +69,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         try:
-            agent_names = guess_agents_from_message(text_data)
+            response_data = await get_chatbot_response(
+                text_data, self.chat_histories,
+                user_email=self.user_email,
+                chat_id=self.chat_id
+            )
+
+            is_no_function = False
+            if isinstance(response_data, dict):
+                bot_reply = response_data.get("data", {}).get("bot_reply", [])
+                is_no_function = any(isinstance(item, dict) and "no_function" in item for item in bot_reply)
+
+            if is_no_function:
+                await self.send(text_data=json.dumps(response_data))
+                return
+
+            if isinstance(response_data, list):
+                executed_agents = [list(res.keys())[0] for res in response_data if isinstance(res, dict) and res]
+                agent_names = executed_agents if executed_agents else guess_agents_from_message(text_data)
+            else:
+                agent_names = guess_agents_from_message(text_data)
 
             status_msg = {
                 "type": "agent_status",
@@ -81,28 +100,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.send(text_data=json.dumps(status_msg))
 
             for i, name in enumerate(agent_names):
-                await asyncio.sleep(0.25)
-                await self.send(text_data=json.dumps({
-                    "type": "agent_update",
-                    "agent": name,
-                    "label": AGENT_LABELS.get(name, name),
-                    "status": "running",
-                    "index": i,
-                }))
-
-            response_data = await get_chatbot_response(
-                text_data, self.chat_histories,
-                user_email=self.user_email,
-                chat_id=self.chat_id
-            )
-
-            for name in agent_names:
-                await asyncio.sleep(0.05)
                 await self.send(text_data=json.dumps({
                     "type": "agent_update",
                     "agent": name,
                     "label": AGENT_LABELS.get(name, name),
                     "status": "done",
+                    "index": i,
                 }))
 
             await self.send(text_data=json.dumps(response_data))

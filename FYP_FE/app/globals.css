@@ -35,7 +35,7 @@
     --ring: 173 70% 32%;
 
     /* Brand — ocean teal full scale */
-    --brand-50:  174 60% 96%;
+    --brand-50: 174 60% 96%;
     --brand-100: 174 64% 90%;
     --brand-200: 174 55% 82%;
     --brand-300: 174 50% 72%;
@@ -102,7 +102,7 @@
     --ring: 167 70% 50%;
 
     /* Brand scale shifts warmer/lighter for dark bg */
-    --brand-50:  176 70% 14%;
+    --brand-50: 176 70% 14%;
     --brand-100: 174 60% 20%;
     --brand-200: 173 45% 26%;
     --brand-300: 173 40% 36%;
@@ -178,6 +178,7 @@
   .motion-fade {
     transition: opacity 180ms var(--ease-quick);
   }
+
   .motion-lift {
     transition:
       transform 180ms var(--ease-quick),
@@ -186,10 +187,15 @@
   }
 }
 
-/* Locked single-accent (ocean teal) brand utilities */
+.btn-glow-brand {
+  background: linear-gradient(135deg, hsl(173, 74%, 36%), hsl(173, 78%, 28%));
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px 0 rgba(15, 118, 110, 0.35);
+}
+
 .brand {
   background-color: hsl(var(--brand));
-  color: hsl(var(--brand-foreground));
+  color: #ffffff !important;
 }
 
 .brand-text {
@@ -244,7 +250,7 @@
   @apply bg-background dark:bg-zinc-800 outline-none selection:bg-zinc-900 !important;
 }
 
-.ͼo.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.ͼo.cm-focused>.cm-scroller>.cm-selectionLayer .cm-selectionBackground,
 .ͼo.cm-selectionBackground,
 .ͼo.cm-content::selection {
   @apply bg-zinc-200 dark:bg-zinc-900 !important;

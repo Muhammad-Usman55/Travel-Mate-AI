@@ -176,38 +176,25 @@ export const initializeWebSocket = createAsyncThunk(
                 textMessage += (textMessage ? '\n\n' : '') + item.get_Flights.message;
               }
             }
-            // Handle get_hotels with result array (original format)
-            else if (item.get_hotels?.status === 'success') {
-              if (Array.isArray(item.get_hotels.result)) {
-                const firstItem = item.get_hotels.result[0];
-                if (typeof firstItem === 'object' && firstItem.hotel_name) {
-                  hotelData.push(...item.get_hotels.result);
+            // Universal robust parsing for get_hotels
+            else if (item.get_hotels) {
+              const parseHotelItem = (hItem: any) => {
+                if (!hItem) return;
+                if (Array.isArray(hItem)) {
+                  hItem.forEach(parseHotelItem);
+                } else if (hItem.details && Array.isArray(hItem.details)) {
+                  hotelData.push(...hItem.details);
+                } else if (hItem.HotelName || hItem.hotel_name) {
+                  hotelData.push(hItem);
+                } else if (hItem.hotels) {
+                  parseHotelItem(hItem.hotels);
+                } else if (hItem.data) {
+                  parseHotelItem(hItem.data);
+                } else if (hItem.result) {
+                  parseHotelItem(hItem.result);
                 }
-              } else if (item.get_hotels.result?.hotels) {
-                hotelData.push(...item.get_hotels.result.hotels);
-              }
-            }
-            // Handle get_hotels error — skip silently
-            else if (item.get_hotels?.success === false || item.get_hotels?.error || item.get_hotels?.hotels?.error) {
-              // silent degradation
-            }
-            // Handle get_hotels as direct array (new format)
-            else if (item.get_hotels && Array.isArray(item.get_hotels)) {
-              item.get_hotels.forEach((hotel: any) => {
-                if (hotel.details && hotel.details[0] && hotel.details[0].data) {
-                  hotelData.push(hotel.details[0].data);
-                } else if (hotel.hotel_name) {
-                  hotelData.push(hotel);
-                }
-              });
-            }
-            // Handle get_hotels nested format: {get_hotels: {hotels: {data: [{details: [...]}]}}}
-            else if (item.get_hotels?.hotels?.data && Array.isArray(item.get_hotels.hotels.data)) {
-              item.get_hotels.hotels.data.forEach((item: any) => {
-                if (item.details && Array.isArray(item.details)) {
-                  hotelData.push(...item.details);
-                }
-              });
+              };
+              parseHotelItem(item.get_hotels);
             }
             // Handle get_currency response
             else if (item.get_currency?.currency) {

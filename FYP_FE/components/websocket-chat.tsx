@@ -25,11 +25,11 @@ export function WebSocketChat({
   return (
     <div className="flex flex-col w-full h-screen bg-background">
       <ChatHeader chatId={id} session={session} />
-      
+
       <div className="flex-1 overflow-y-auto px-4 py-6">
         <WebSocketMessages />
       </div>
-      
+
       <div className="border-t border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
         <div className="flex items-center justify-center p-3">
           {socketConnected ? (

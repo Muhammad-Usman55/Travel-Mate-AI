@@ -138,8 +138,19 @@ async def get_chatbot_response(user_input, session, user_email='guest', chat_id=
                 await save_chat_and_messages(user_email, chat_id, user_input, bot_response)
             return bot_response
 
-        non_tool_actions = [a for a in parsed if normalize_tool_name(a) == "no_function"]
-        tool_actions = [a for a in parsed if normalize_tool_name(a) and normalize_tool_name(a) != "no_function"]
+        if isinstance(parsed, list):
+            non_tool_actions = [a for a in parsed if isinstance(a, dict) and normalize_tool_name(a) == "no_function"]
+            tool_actions = [a for a in parsed if isinstance(a, dict) and normalize_tool_name(a) and normalize_tool_name(a) != "no_function"]
+        elif isinstance(parsed, dict):
+            if normalize_tool_name(parsed) == "no_function":
+                non_tool_actions = [parsed]
+                tool_actions = []
+            else:
+                non_tool_actions = []
+                tool_actions = [parsed]
+        else:
+            non_tool_actions = []
+            tool_actions = []
 
         if non_tool_actions:
             msg = non_tool_actions[0].get("input", {}).get("message", "Hello! I am TravelMate AI, your travel assistant.")

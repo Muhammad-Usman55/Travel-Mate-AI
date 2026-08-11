@@ -26,20 +26,20 @@ def get_city_query(iata_code):
 def format_hotel_data(properties, city_code, checkOutDate):
     details = []
     for p in properties:
-        rate = (p.get("rate_per_night") or {}).get("extracted_lowest") or (p.get("rate_per_night") or {}).get("lowest")
-        if rate and isinstance(rate, str):
-            match = re.search(r'[\d.]+', rate)
+        rate = (p.get("rate_per_night") or {}).get("extracted_lowest") or (p.get("rate_per_night") or {}).get("lowest") or p.get("price")
+        if rate and isinstance(rate, (str, int, float)):
+            match = re.search(r'[\d.]+', str(rate))
             rate = match.group() if match else None
         details.append({
             "HotelName": p.get("name", "N/A"),
             "City": city_code,
             "Price": f"${rate}" if rate else "N/A",
             "Rating": p.get("overall_rating", "N/A"),
-            "Stars": p.get("hotel_class", "N/A"),
+            "Stars": p.get("hotel_class") or p.get("extracted_hotel_class") or "N/A",
             "Amenities": p.get("amenities", []),
             "CheckOut": checkOutDate,
             "Link": p.get("link", "N/A"),
-            "Thumbnail": (p.get("images") or [{}])[0].get("thumbnail", "N/A"),
+            "Thumbnail": (p.get("images") or [{}])[0].get("thumbnail") or p.get("thumbnail") or "N/A",
         })
     return details
 
@@ -65,11 +65,22 @@ async def hotel_data(city_code, checkInDate, checkOutDate, adults, api_key, star
             data = await response.json()
 
     properties = data.get("properties", [])
-    if star:
-        properties = [p for p in properties if str(p.get("hotel_class", "")) == str(star)]
+    if star and str(star).strip().lower() not in ("any", "all", "", "none"):
+        def get_star_num(val):
+            m = re.search(r'\d+', str(val or ''))
+            return m.group() if m else ''
+
+        target_star = get_star_num(star)
+        if target_star:
+            filtered = [
+                p for p in properties
+                if get_star_num(p.get("hotel_class")) == target_star or get_star_num(p.get("extracted_hotel_class")) == target_star
+            ]
+            if filtered:
+                properties = filtered
 
     if not properties:
-        return {"Result": "Not Found"}
+        properties = data.get("properties", [])
 
     extracted_data = format_hotel_data(properties, city_code, checkOutDate)
     return {'details': extracted_data}

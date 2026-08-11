@@ -108,11 +108,10 @@ export function FlightCard({ flight }: FlightCardProps) {
                       {hasDuration && (
                         <span className="text-[10px] text-slate-400 tabular-nums">{segment.FlightDuration}</span>
                       )}
-                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
-                        isDirect
+                      <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${isDirect
                           ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400'
                           : 'bg-slate-100 dark:bg-slate-800 text-slate-500'
-                      }`}>
+                        }`}>
                         {isDirect ? 'Direct' : `${segment.NumberOfStops} stop${segment.NumberOfStops > 1 ? 's' : ''}`}
                       </span>
                     </div>

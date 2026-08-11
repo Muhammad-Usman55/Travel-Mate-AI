@@ -14,6 +14,11 @@ export const metadata: Metadata = {
   title: 'TravelMate AI — Smart Travel Planning',
   description:
     'AI-powered travel planning assistant. Search flights, find hotels, and create personalized itineraries with intelligent MCP-based agents.',
+  icons: {
+    icon: '/favicon_circle.png',
+    shortcut: '/favicon_circle.png',
+    apple: '/favicon_circle.png',
+  },
 };
 
 export const viewport = {
