@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * TravelMate AI — Editorial design system
+ * Single accent: ocean teal. Monochrome base. Hairline over glass.
+ * All colors stored as raw "H S L" triplets (shadcn convention) and
+ * consumed via hsl(var(--token)).
+ */
+@layer base {
+  :root {
+    /* Surfaces — near-neutral, faintly cool */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+
+    /* Neutral ramp */
+    --primary: 240 10% 3.9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 96.1%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 4.8% 96.1%;
+    --muted-foreground: 240 4% 46.1%;
+    --accent: 240 4.8% 96.1%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 173 70% 32%;
+
+    /* Brand — ocean teal full scale */
+    --brand-50:  174 60% 96%;
+    --brand-100: 174 64% 90%;
+    --brand-200: 174 55% 82%;
+    --brand-300: 174 50% 72%;
+    --brand-400: 173 60% 56%;
+    --brand-500: 173 68% 44%;
+    --brand-600: 173 74% 36%;
+    --brand-700: 173 78% 30%;
+    --brand-800: 175 78% 24%;
+    --brand-900: 176 74% 18%;
+    --brand-950: 178 70% 12%;
+
+    /* Brand semantic shortcuts */
+    --brand: var(--brand-700);
+    --brand-foreground: 0 0% 100%;
+    --brand-subtle: var(--brand-50);
+    --brand-subtle-foreground: var(--brand-800);
+    --brand-border: var(--brand-200);
+
+    /* Charts — monochrome teal ramp (no rainbow) */
+    --chart-1: 173 70% 32%;
+    --chart-2: 173 50% 48%;
+    --chart-3: 173 30% 64%;
+    --chart-4: 175 60% 24%;
+    --chart-5: 170 40% 76%;
+
+    --radius: 0.5rem;
+
+    /* Motion */
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-quick: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 4% 26.1%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 240 6% 90%;
+    --sidebar-ring: 173 70% 32%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 8% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 8% 6%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 6% 10%;
+    --secondary: 240 6% 12%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 6% 13%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 6% 14%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 6% 16%;
+    --input: 240 6% 18%;
+    --ring: 167 70% 50%;
+
+    /* Brand scale shifts warmer/lighter for dark bg */
+    --brand-50:  176 70% 14%;
+    --brand-100: 174 60% 20%;
+    --brand-200: 173 45% 26%;
+    --brand-300: 173 40% 36%;
+    --brand-400: 167 55% 50%;
+    --brand-500: 167 68% 56%;
+    --brand-600: 167 72% 48%;
+    --brand-700: 167 72% 42%;
+    --brand-800: 167 65% 36%;
+    --brand-900: 168 55% 28%;
+    --brand-950: 170 45% 18%;
+
+    --brand: var(--brand-700);
+    --brand-foreground: 173 90% 6%;
+    --brand-subtle: var(--brand-950);
+    --brand-subtle-foreground: var(--brand-300);
+    --brand-border: var(--brand-800);
+
+    --chart-1: 167 70% 55%;
+    --chart-2: 167 55% 65%;
+    --chart-3: 170 40% 75%;
+    --chart-4: 167 65% 45%;
+    --chart-5: 165 45% 80%;
+
+    --sidebar-background: 240 8% 6%;
+    --sidebar-foreground: 240 5% 64.9%;
+    --sidebar-primary: 0 0% 98%;
+    --sidebar-primary-foreground: 240 6% 10%;
+    --sidebar-accent: 240 6% 14%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 240 6% 16%;
+    --sidebar-ring: 167 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1, 'ss01' 1;
+  }
+
+  /* Tabular numbers wherever we show data */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  ::selection {
+    background-color: hsl(var(--brand) / 0.18);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Display heading — Instrument Serif contrast face */
+  .font-display {
+    font-family: var(--font-display), var(--font-sans), Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  /* Subtle, fast, interaction-only transitions */
+  .motion-fade {
+    transition: opacity 180ms var(--ease-quick);
+  }
+  .motion-lift {
+    transition:
+      transform 180ms var(--ease-quick),
+      border-color 180ms var(--ease-quick),
+      background-color 180ms var(--ease-quick);
+  }
+}
+
+/* Locked single-accent (ocean teal) brand utilities */
+.brand {
+  background-color: hsl(var(--brand));
+  color: hsl(var(--brand-foreground));
+}
+
+.brand-text {
+  color: hsl(var(--brand));
+}
+
+.brand-subtle {
+  background-color: hsl(var(--brand-subtle));
+  color: hsl(var(--brand-subtle-foreground));
+}
+
+.brand-subtle-text {
+  color: hsl(var(--brand-subtle-foreground));
+}
+
+.brand-border {
+  border-color: hsl(var(--brand-border));
+}
+
+/* Alias kept for the logo mark containers across the app */
+.travel-gradient {
+  background-color: hsl(var(--brand));
+  color: hsl(var(--brand-foreground));
+}
+
+/* Skeleton state — functional, keep */
+.skeleton {
+  * {
+    pointer-events: none !important;
+  }
+
+  *[class^='text-'] {
+    color: transparent;
+    @apply rounded-md bg-foreground/20 select-none animate-pulse;
+  }
+
+  .skeleton-bg {
+    @apply bg-foreground/10;
+  }
+
+  .skeleton-div {
+    @apply bg-foreground/20 animate-pulse;
+  }
+}
+
+.ProseMirror {
+  outline: none;
+}
+
+.cm-editor,
+.cm-gutters {
+  @apply bg-background dark:bg-zinc-800 outline-none selection:bg-zinc-900 !important;
+}
+
+.ͼo.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.ͼo.cm-selectionBackground,
+.ͼo.cm-content::selection {
+  @apply bg-zinc-200 dark:bg-zinc-900 !important;
+}
+
+.cm-activeLine,
+.cm-activeLineGutter {
+  @apply bg-transparent !important;
+}
+
+.cm-activeLine {
+  @apply rounded-r-sm !important;
+}
+
+.cm-lineNumbers {
+  @apply min-w-7;
+}
+
+.cm-foldGutter {
+  @apply min-w-3;
+}
+
+.cm-lineNumbers .cm-activeLineGutter {
+  @apply rounded-l-sm !important;
+}
+
+/* Suggestion highlight — teal accent, not blue */
+.suggestion-highlight {
+  @apply bg-brand-100 text-brand-900 hover:bg-brand-200 dark:bg-brand-500/30 dark:text-brand-50 dark:hover:bg-brand-500/50;
+}

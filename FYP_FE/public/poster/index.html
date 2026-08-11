@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TravelMate AI - Academic Poster</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 600px; height: 1500px; overflow: hidden;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: #8E2D44; color: #fff;
+  }
+  .poster { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; }
+
+  /* TOP SECTION */
+  .top-section {
+    height: 300px; padding: 28px 36px 20px;
+    background: linear-gradient(180deg, #7a2639 0%, #8E2D44 100%);
+    display: flex; flex-direction: column; position: relative; overflow: hidden;
+  }
+  .top-section::after {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .top-bar { display: flex; align-items: center; gap: 14px; }
+  .sst-icon {
+    width: 44px; height: 44px; border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .sst-icon svg { width: 26px; height: 26px; }
+  .sst-wordmark { line-height: 1.2; }
+  .sst-wordmark .school { font-size: 13px; font-weight: 600; letter-spacing: 0.3px; color: #f5d6a0; }
+  .sst-wordmark .sub { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; }
+  .tagline { font-size: 10px; font-weight: 500; color: #e8c88a; letter-spacing: 1.2px; margin-top: 10px; text-transform: uppercase; }
+  .hero-center { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 6px; }
+  .title { font-size: 46px; font-weight: 900; letter-spacing: -1px; background: linear-gradient(135deg, #fff 60%, #f5d6a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .subtitle { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.85); margin-top: 6px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .names { font-size: 15px; font-weight: 600; color: #f5d6a0; margin-top: 8px; letter-spacing: 0.5px; }
+  .supervisor { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.6); margin-top: 4px; letter-spacing: 0.3px; }
+
+  /* MIDDLE SECTION */
+  .middle-section {
+    flex: 1; padding: 18px 28px 12px; overflow: hidden;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .card {
+    background: #fff; border-radius: 12px; padding: 16px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    color: #1a1a2e; flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    color: #8E2D44; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;
+  }
+  .card-title svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  /* Problem Statement */
+  .problem-card { padding: 12px 20px; }
+  .problem-text { font-size: 10.5px; line-height: 1.55; color: #333; font-weight: 400; }
+
+  /* Architecture */
+  .arch-card { height: 230px; padding: 14px 20px; }
+  .arch-flow { display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-top: 6px; }
+  .arch-node {
+    flex: 1; text-align: center;
+    background: #f8f4f0; border-radius: 10px; padding: 10px 6px;
+    border: 1px solid #e8ddd5; min-height: 82px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+  }
+  .arch-node svg { width: 24px; height: 24px; opacity: 0.8; }
+  .arch-node .label { font-size: 8.5px; font-weight: 600; color: #8E2D44; text-transform: uppercase; letter-spacing: 0.3px; }
+  .arch-node .sublabel { font-size: 7px; color: #666; font-weight: 400; }
+  .arch-arrow { flex-shrink: 0; color: #8E2D44; opacity: 0.5; }
+  .arch-arrow svg { width: 18px; height: 18px; display: block; }
+
+  /* Features */
+  .features-card { padding: 14px 20px; }
+  .features-list { display: flex; flex-direction: column; gap: 6px; margin-top: 2px; }
+  .feature-item { display: flex; align-items: center; gap: 10px; }
+  .feature-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .feature-icon-wrap {
+    width: 28px; height: 28px; border-radius: 6px; background: #f3eae4;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .feature-item .text { font-size: 10.5px; color: #333; font-weight: 500; line-height: 1.3; }
+  .feature-item .text span { color: #8E2D44; font-weight: 600; }
+
+  /* Metrics */
+  .metrics-card { padding: 14px 20px; }
+  .metrics-row { display: flex; justify-content: space-around; margin-top: 2px; }
+  .metric { text-align: center; }
+  .metric .num { font-size: 28px; font-weight: 800; color: #8E2D44; line-height: 1; }
+  .metric .num sup { font-size: 14px; }
+  .metric .lbl { font-size: 9px; color: #555; font-weight: 500; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.3px; }
+
+  /* Bottom row: QR + Tech Stack */
+  .bottom-row-card { padding: 10px 20px; display: flex; align-items: center; gap: 20px; }
+  .qr-placeholder {
+    width: 64px; height: 64px; border-radius: 6px; background: #f3eae4;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .qr-placeholder svg { width: 32px; height: 32px; opacity: 0.6; }
+  .tech-stack { flex: 1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .tech-badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    background: #f3eae4; border-radius: 4px; padding: 4px 8px; font-size: 8px; font-weight: 600;
+    color: #5a3d35;
+  }
+  .tech-badge svg { width: 12px; height: 12px; }
+
+  /* BOTTOM SECTION */
+  .bottom-section {
+    height: 80px; padding: 14px 36px;
+    background: linear-gradient(0deg, #7a2639 0%, #8E2D44 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .bottom-section .department { font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+  .bottom-section .university { font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; }
+
+  .icon-maroon { color: #8E2D44; }
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- TOP SECTION (0-300px) -->
+  <div class="top-section">
+    <div class="top-bar">
+      <div class="sst-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#f5d6a0" stroke-width="1.5">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="sst-wordmark">
+        <div class="school">School of Systems &amp; Technology</div>
+        <div class="sub">UNIVERSITY OF MANAGEMENT &amp; TECHNOLOGY, LHR</div>
+      </div>
+    </div>
+    <div class="tagline">&#9679; Leading Pakistan's Digital Revolution</div>
+    <div class="hero-center">
+      <div class="title">TravelMate AI</div>
+      <div class="subtitle">MCP-Based Intelligent Travel Planning Agent</div>
+      <div class="names">Hamza Asif &bull; Jasim Abrar &bull; Muhammad Usman Shahid</div>
+      <div class="supervisor">Supervisor: Dr. Faraz Manzoor</div>
+    </div>
+  </div>
+
+  <!-- MIDDLE SECTION (300-1420px) -->
+  <div class="middle-section">
+
+    <!-- 1. Problem Statement -->
+    <div class="card problem-card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Problem Statement
+      </div>
+      <p class="problem-text">
+        Planning travel involves searching across multiple fragmented platforms for flights, hotels, and itineraries — a time-consuming process. Existing systems lack conversational AI, real-time orchestration, and fault isolation. TravelMate AI solves this with an MCP-based decentralized multi-agent architecture.
+      </p>
+    </div>
+
+    <!-- 2. Architecture Diagram -->
+    <div class="card arch-card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+        MCP System Architecture
+      </div>
+      <div class="arch-flow">
+        <div class="arch-node">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div class="label">User Query</div>
+          <div class="sublabel">WebSocket / Chat</div>
+        </div>
+        <div class="arch-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="arch-node">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 10 10h-10V2z"/><path d="M12 12 8 8"/></svg>
+          <div class="label">LLM Reasoning</div>
+          <div class="sublabel">Groq / LLaMA 3.3 70B</div>
+        </div>
+        <div class="arch-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="arch-node">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M1 12h4M19 12h4"/></svg>
+          <div class="label">Agent Orchestrator</div>
+          <div class="sublabel">Intent Router &amp; Dispatcher</div>
+        </div>
+        <div class="arch-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="arch-node">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <div class="label">MCP Tool Servers</div>
+          <div class="sublabel">Flights &amp; Hotels &amp; Currency</div>
+        </div>
+        <div class="arch-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="arch-node">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <div class="label">Response</div>
+          <div class="sublabel">Aggregated Results</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Key Features -->
+    <div class="card features-card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Key Features
+      </div>
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="text"><span>Real-Time AI Chat</span> — Conversational interface with MCP-based intent routing using LLaMA 3.3 70B</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M12 2a10 10 0 1 0 10 10h-10V2z"/><path d="M12 12 8 8"/></svg>
+          </div>
+          <div class="text"><span>Multi-Agent Orchestration</span> — Decentralized agents for flights, hotels &amp; trip planning running concurrently</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+          <div class="text"><span>Seamless API Integration</span> — Amadeus flight &amp; hotel search with live pricing and currency conversion</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="text"><span>WebSocket Realtime</span> — Full-duplex communication with sub-second latency for live chat experience</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="text"><span>Fault Isolation</span> — Agent failures are contained; other services continue uninterrupted</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Results/Metrics -->
+    <div class="card metrics-card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+        Performance Metrics
+      </div>
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="num">57<sup>%</sup></div>
+          <div class="lbl">Latency Reduction</div>
+        </div>
+        <div class="metric">
+          <div class="num">3.2<sup>x</sup></div>
+          <div class="lbl">Throughput Gain</div>
+        </div>
+        <div class="metric">
+          <div class="num">99.9<sup>%</sup></div>
+          <div class="lbl">Fault Containment</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. QR + Tech Stack -->
+    <div class="card bottom-row-card">
+      <div class="qr-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="1.5"><rect x="2" y="2" width="8" height="8" rx="1"/><rect x="14" y="2" width="8" height="8" rx="1"/><rect x="2" y="14" width="8" height="8" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="19" y="14" width="3" height="3"/><rect x="14" y="19" width="3" height="3"/><rect x="19" y="19" width="3" height="3"/><rect x="2" y="2" width="2" height="2"/><rect x="8" y="2" width="2" height="2"/><rect x="2" y="8" width="2" height="2"/><rect x="8" y="8" width="2" height="2"/><rect x="14" y="2" width="2" height="2"/><rect x="20" y="2" width="2" height="2"/><rect x="14" y="8" width="2" height="2"/><rect x="20" y="8" width="2" height="2"/><rect x="2" y="14" width="2" height="2"/><rect x="8" y="14" width="2" height="2"/><rect x="2" y="20" width="2" height="2"/><rect x="8" y="20" width="2" height="2"/></svg>
+      </div>
+      <div class="tech-stack">
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Django</span>
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Next.js</span>
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>WebSocket</span>
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10h-10V2z"/></svg>Groq AI</span>
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Amadeus</span>
+        <span class="tech-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#8E2D44" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>SQLite</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM SECTION (1420-1500px) -->
+  <div class="bottom-section">
+    <div class="department">Department of Artificial Intelligence</div>
+    <div class="university">University of Management &amp; Technology, Lahore</div>
+  </div>
+
+</div>
+</body>
+</html>

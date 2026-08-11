@@ -1,0 +1,18 @@
+﻿# Backend
+FYP_BE/venv/
+FYP_BE/__pycache__/
+FYP_BE/**/__pycache__/
+FYP_BE/*.sqlite3
+FYP_BE/db.sqlite3
+
+# Frontend
+FYP_FE/node_modules/
+FYP_FE/.next/
+FYP_FE/.vercel/
+FYP_FE/playwright-report/
+FYP_FE/test-results/
+FYP_FE/.env.local
+
+# General
+*.log
+.DS_Store

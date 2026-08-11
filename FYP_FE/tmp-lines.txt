@@ -1,0 +1,26 @@
+191               }
+192 
+193               hasErrors.push(`? ${userFriendlyError}`);
+194             }
+195             // Handle get_hotels as direct array (new format)
+196             else if (item.get_hotels && Array.isArray(item.get_hotels)) {
+197               item.get_hotels.forEach((hotel: any) => {
+198                 if (typeof hotel === 'string' && hotel.includes('Error')) {
+199                   console.log('Hotel error:', hotel);
+200                   hasErrors.push('? Please verify your hotel search details and try again.');
+201                 } else if (hotel.details && hotel.details[0] && hotel.details[0].data) {
+202                   // Handle hotel with details structure
+203                   hotelData.push(hotel.details[0].data);
+204                 } else if (hotel.hotel_name) {
+205                   // Handle direct hotel data
+206                   hotelData.push(hotel);
+207                 }
+208               });
+209             }
+210           });
+211 
+212           // Handle get_currency response with new orchestrator format
+213           else if (item.get_currency?.currency) {
+214             currencyData = item.get_currency.currency;
+215           }
+216           // Handle get_currency error
